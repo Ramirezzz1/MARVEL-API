@@ -5,7 +5,7 @@ from flask.helpers import flash, url_for, flash
 from flask_wtf.recaptcha import validators
 from werkzeug.utils import redirect
 from app.forms import newAvengerForm
-from app.models import Avenger
+from app.models import db,Avenger
 
 community = Blueprint('community', __name__, template_folder='community_templates')
 
@@ -34,7 +34,7 @@ def add_avenger():
             db.session.commit()
 
             flash('New Avenger added to our database.', category='alert-info')
-            flash(f'{newavenger.to_dict()}', category='alert-info')
+            flash(f'{newavenger.roster()}', category='alert-info')
         else:
             flash('Invalid Credentials please try again ', category='alert-danger')
     return render_template('addavenger.html',form=form)
