@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, DecimalField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, IntegerField, PasswordField
+from wtforms.validators import DataRequired, Email, EqualTo
 
 class newAvengerForm(FlaskForm):
     hero = StringField('Hero',validators=[DataRequired()])
@@ -12,3 +12,16 @@ class newAvengerForm(FlaskForm):
     weaknesses = StringField('Weaknesses', validators=[DataRequired()])
     submit = SubmitField()
     
+class loginform(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField()
+
+class SignUpform(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    first_name = StringField('First Name')
+    last_name = StringField('Last Name')
+    submit = SubmitField()

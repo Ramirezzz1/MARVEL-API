@@ -8,7 +8,7 @@ from .authorization.routes import auth
 
 #import database
 from .models import db, login
-from flask_migrate import Migrate, migrate
+from flask_migrate import Migrate
 
 #instance of the application
 app = Flask(__name__)
@@ -28,6 +28,9 @@ migrate = Migrate(app,db)
 
 #config login manager
 login.init_app(app)
+login.login_view = 'auth.login'
+login.login_message = 'Please Log in'
+login.login_message_category = 'alert-info'
 
 from . import routes
 from . import models

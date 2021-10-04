@@ -1,4 +1,3 @@
-from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin
 from datetime import datetime
@@ -16,13 +15,13 @@ db = SQLAlchemy()
 
 class Avenger(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    hero = db.Column(db.String(100), nullable=False, unique=True)
-    firstname = db.Column(db.String(100))
-    lastname = db.Column(db.String(100))
+    hero = db.Column(db.String(150), nullable=False, unique=True)
+    firstname = db.Column(db.String(150))
+    lastname = db.Column(db.String(150))
     age = db.Column(db.Integer)
-    hometown= db.Column(db.String(100))
-    powers = db.Column(db.String(100))
-    weaknesses = db.Column(db.String(100))
+    hometown= db.Column(db.String(150))
+    powers = db.Column(db.String(150))
+    weaknesses = db.Column(db.String(150))
 
     def roster(self):
         return {
@@ -40,9 +39,9 @@ class Avenger(db.Model):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.String, primary_key = True)
-    username = db.Column(db.String(20), nullable=False, unique=True)
+    username = db.Column(db.String(150), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, default='')
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(32), nullable=False)
     first_name= db.Column(db.String(150), nullable= True, default='')
     last_name=db.Column(db.String(150), nullable=True, default='')
     date_created = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
@@ -56,7 +55,7 @@ class User(db.Model, UserMixin):
         self.id = str(uuid.uuid4())
 
 
-    def log_user(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'first_name':self.first_name,
